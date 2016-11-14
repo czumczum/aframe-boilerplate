@@ -1,18 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="">
   <head>
     <meta charset="utf-8">
     <title>Hello, World! - A-Frame</title>
     <meta name="description" content="Hello, World! - A-Frame">
     <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+      <script src="js/vendors/k-frame.js"></script>
+      <script src="js/click-event.js"></script>
   </head>
   <body>
-    <a-scene>
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-      <a-sky color="#ECECEC"></a-sky>
-    </a-scene>
+  <a-scene stats inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js">
+      <a-assets>
+          <img id="woody" src="img/bg/woodpeacker.png">
+          <img id="city" src="img/city.jpg">
+          <img id="city-thumb" src="img/city-thumb.jpg">
+          <img id="desert" src="img/desert.jpg">
+          <img id="desert-thumb" src="img/desert-thumb.jpg">
+          <img id="mount" src="img/mount.jpg">
+          <img id="mount-thumb" src="img/mount-thumb.jpg">
+
+          <!--Template component: https://github.com/ngokevin/aframe-template-component-->
+
+          <script id="plane" type="text/nunjucks">
+                <a-plane class="link" height=".8" width=".8" material="shader: flat; src: {{ thumb }}"
+                         event-set__1="_event: mousedown; scale: 1 1 1"
+                         event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+                         event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
+                         event-set__4="_event: mouseleave; scale: 1 1 1"></a-plane>
+        </script>
+          <!--End-->
+
+      </a-assets>
+
+
+      <a-sky
+              id="image-360"
+              radius="10"
+              color="#224">
+      </a-sky>
+
+      <!-- Link. -->
+
+      <a-entity id="links">
+          <a-entity template="src: #plane"
+                    data-thumb="#city-thumb"
+                    rotation="0 30 0"
+                    position="-1 1.5 -1"
+          ></a-entity>
+          <a-entity template="src: #plane"
+                    data-thumb="#desert-thumb"
+                    position="0 1.5 -1.3"
+          ></a-entity>
+          <a-entity template="src: #plane"
+                    data-thumb="#mount-thumb"
+                    rotation="0 -30 0"
+                    position="1 1.5 -1"
+          ></a-entity>
+      </a-entity>
+
+
+      <!--<a-box-->
+              <!--position="0 1.25 -5"-->
+              <!--height="2"-->
+              <!--width="2"-->
+              <!--depth="2"-->
+              <!--color="#fff"-->
+              <!--rotation="0 45 0"-->
+              <!--src="#woody"-->
+              <!--scale-on-click="to: 1.5 1.5 1.5"-->
+      <!--&gt;-->
+          <!--<a-animation-->
+                  <!--attribute="rotation"-->
+                  <!--begin="click"-->
+                  <!--repeat="1"-->
+                  <!--from="0 45 0"-->
+                  <!--to="0 405 0"-->
+          <!--&gt;-->
+          <!--</a-animation>-->
+     <!--</a-box>-->
+
+
+      <a-camera
+              position="0 1.6 0"
+      >
+          <a-cursor id="cursor">
+              <a-animation begin="click" easing="ease-in" attribute="scale"
+                           fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+              <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+                           from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
+          </a-cursor>
+      </a-camera>
+  </a-scene>
   </body>
 </html>

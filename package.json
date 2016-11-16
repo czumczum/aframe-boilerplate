@@ -21,6 +21,9 @@
     "vr"
   ],
   "dependencies": {
+    "aframe": "^0.3.2",
+    "aframe-extras": "^2.6.1",
+    "aframe-physics-system": "^1.0.3",
     "aframe-template-component": "^3.1.1"
   }
 }
